@@ -54,7 +54,6 @@
 
     <form id="sandwichForm">
 
-        <!-- QUESTIONS GENERATED HERE -->
         <div id="questions"></div>
 
         <button type="button" onclick="finishTest()">Submit Test</button>
@@ -62,45 +61,62 @@
 </div>
 
 <script>
-    // Sandwich categories
+    // Sandwich types
     const types = ["Standard-Sandwich", "FullyLoaded", "OpenFace", "Sleek-Sub", "Super-Sandwich"];
 
-    // 20 questions mapped to sandwich types
-    const questions = [
-        ["How hungry are you right now?", types],
-        ["Pick a bread style.", types],
-        ["How messy can your sandwich be?", types],
-        ["Pick a mission type.", types],
-        ["Choose a cheese level.", types],
-        ["How fast do you eat?", types],
-        ["Pick a condiment style.", types],
-        ["Pick your ideal sandwich weight.", types],
-        ["How much meat do you want?", types],
-        ["Pick a sandwich temperature.", types],
-        ["How adventurous are you with food?", types],
-        ["Pick a sandwich speed rating.", types],
-        ["Pick a sandwich mission duration.", types],
-        ["Pick a lettuce level.", types],
-        ["How much energy do you need?", types],
-        ["Pick a sandwich vibe.", types],
-        ["Pick a sandwich difficulty rating.", types],
-        ["Pick a sandwich stealth rating.", types],
-        ["Pick a sandwich morale boost.", types],
-        ["Pick a sandwich intimidation level.", types]
+    // Real human answers for each question
+    const answers = [
+        ["A light snack", "A normal meal", "Something efficient and filling", "A big hearty sandwich", "A massive, energy-packed meal"],
+        ["One slice, open style", "Classic white or wheat", "A long sub roll", "Thick artisan bread", "Reinforced double-layer bread"],
+        ["Very neat", "Mildly messy", "Slightly messy but controlled", "Messy but worth it", "Total chaos"],
+        ["Light recon", "Standard patrol", "Stealth infiltration", "Heavy support", "Full assault"],
+        ["None", "One slice", "Thin layer", "Double cheese", "Triple cheese"],
+        ["Slow and relaxed", "Normal pace", "Efficient", "Fast", "Tactical inhalation"],
+        ["Light spread", "Standard amount", "Oil & vinegar", "Heavy sauce", "Classified special sauce"],
+        ["Light", "Medium", "Streamlined", "Heavy", "Maximum payload"],
+        ["Minimal", "Normal", "Lean slices", "Double meat", "Triple meat"],
+        ["Cool", "Room temp", "Slightly chilled", "Warm", "Hot"],
+        ["Not very", "Somewhat", "Depends", "Very", "Extreme"],
+        ["Slow", "Normal", "Fast", "Heavy but powerful", "Maximum velocity"],
+        ["Short", "Medium", "Long", "Extended", "Overnight"],
+        ["None", "Light", "Crisp", "Heavy", "Reinforced"],
+        ["Low", "Normal", "Moderate", "High", "Maximum"],
+        ["Simple", "Classic", "Sleek", "Loaded", "Overpowered"],
+        ["Easy", "Standard", "Technical", "Complex", "Extreme"],
+        ["Low", "Medium", "High", "Loud", "Impossible to hide"],
+        ["Small", "Normal", "Good", "Big", "Legendary"],
+        ["None", "Mild", "Tactical", "Noticeable", "Terrifying"]
     ];
+
+    // Randomized-but-fixed mapping
+    const mapping = [];
+
+    function shuffle(array) {
+        let arr = array.slice();
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    }
+
+    // Create a fixed randomized mapping for each question
+    for (let i = 0; i < answers.length; i++) {
+        mapping.push(shuffle(types));
+    }
 
     // Render questions
     const qDiv = document.getElementById("questions");
 
-    questions.forEach((q, index) => {
+    answers.forEach((ansList, index) => {
         const qBlock = document.createElement("div");
         qBlock.innerHTML = `
-            <div class="question">${index + 1}. ${q[0]}</div>
+            <div class="question">${index + 1}. ${questionsText(index)}</div>
             <div class="answers">
-                ${q[1].map(type => `
+                ${ansList.map((ans, i) => `
                     <label>
-                        <input type="radio" name="q${index}" value="${type}" required>
-                        ${type}
+                        <input type="radio" name="q${index}" value="${mapping[index][i]}" required>
+                        ${ans}
                     </label>
                 `).join("")}
             </div>
@@ -108,11 +124,37 @@
         qDiv.appendChild(qBlock);
     });
 
+    // Question text function
+    function questionsText(i) {
+        const q = [
+            "How hungry are you right now?",
+            "What kind of bread do you prefer?",
+            "How messy can your sandwich be?",
+            "What mission are you preparing for?",
+            "How much cheese do you want?",
+            "How fast do you usually eat?",
+            "Pick your condiment style.",
+            "What weight should your sandwich be?",
+            "How much meat do you want?",
+            "Preferred sandwich temperature?",
+            "How adventurous are you with food?",
+            "Sandwich speed rating?",
+            "Mission duration?",
+            "Lettuce level?",
+            "Energy requirement?",
+            "Sandwich vibe?",
+            "Difficulty rating?",
+            "Stealth rating?",
+            "Morale boost?",
+            "Intimidation level?"
+        ];
+        return q[i];
+    }
+
     function finishTest() {
         const form = document.getElementById("sandwichForm");
         const data = new FormData(form);
 
-        // Score counters
         let scores = {
             "Standard-Sandwich": 0,
             "FullyLoaded": 0,
@@ -121,18 +163,14 @@
             "Super-Sandwich": 0
         };
 
-        // Count answers
         for (let value of data.values()) {
             scores[value]++;
         }
 
-        // Determine highest score
         let best = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
 
-        // Save sandwich result
         localStorage.setItem("fbsi_sandwich", best);
 
-        // Redirect back to sandwich page
         location.href = "sandwich.html";
     }
 </script>
