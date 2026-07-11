@@ -56,10 +56,15 @@
         }
         a {
             display: inline-block;
-            margin-top: 25px;
+            margin-top: 15px;
             font-size: 16px;
             color: #1565c0;
             text-decoration: none;
+        }
+        .retake {
+            margin-top: 25px;
+            font-size: 15px;
+            color: #444;
         }
     </style>
 </head>
@@ -79,6 +84,11 @@
 
     <!-- Sandwich area -->
     <div id="sandwichArea"></div>
+
+    <!-- Retake link -->
+    <div class="retake">
+        <a href="#" onclick="retakeTest()">Retake Sandwich Test</a>
+    </div>
 
     <a href="dashboard.html">Return to Dashboard</a>
 </div>
@@ -119,4 +129,34 @@
         }
     };
 
-    // If sandwich
+    // Display sandwich or button
+    if (sandwich) {
+        const data = sandwichData[sandwich];
+
+        sandwichArea.innerHTML = `
+            <div class="sandwich-box">
+                <div class="label">Sandwich Type:</div>
+                <div class="value">${sandwich}</div>
+
+                <div class="label">Ingredients:</div>
+                <div class="value">${data.ingredients}</div>
+
+                <div class="label">Status:</div>
+                <div class="value">${data.status}</div>
+            </div>
+        `;
+    } else {
+        sandwichArea.innerHTML = `
+            <button class="btn" onclick="location.href='test.html'">Determine Your Sandwich</button>
+        `;
+    }
+
+    // Retake function
+    function retakeTest() {
+        localStorage.removeItem("fbsi_sandwich");
+        location.href = "test.html";
+    }
+</script>
+
+</body>
+</html>
