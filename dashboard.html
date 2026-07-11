@@ -26,7 +26,7 @@
             font-size: 18px;
             color: #333;
         }
-        .info-box {
+        .info-box, .updates-box {
             background: #f7f7f7;
             padding: 20px;
             margin-top: 25px;
@@ -41,6 +41,10 @@
         .value {
             font-size: 18px;
             margin-bottom: 15px;
+        }
+        .update-item {
+            margin-bottom: 12px;
+            font-size: 16px;
         }
         .btn {
             display: block;
@@ -69,6 +73,7 @@
     <h1>FBSI Agent Dashboard</h1>
     <p>Welcome back, Agent. Your operational data is displayed below.</p>
 
+    <!-- Agent Info -->
     <div class="info-box">
         <div class="label">Agent Username:</div>
         <div class="value" id="displayUser"></div>
@@ -77,9 +82,5 @@
         <div class="value" id="displayBadge"></div>
     </div>
 
-    <!-- Buttons -->
-    <button class="btn" onclick="location.href='sandwich.html'">Your Sandwich</button>
-    <button class="btn" onclick="location.href='security.html'">Security Level</button>
-    <button class="btn" onclick="location.href='profile.html'">Agent Profile</button>
-
-    <a href="index.html">
+    <!-- Updates Section -->
+    <div class="updates-box">
