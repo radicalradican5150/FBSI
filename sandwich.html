@@ -95,26 +95,32 @@
     const sandwichArea = document.getElementById("sandwichArea");
     let sandwich = localStorage.getItem("fbsi_sandwich");
 
+    // Your 5 sandwich types
     const sandwichOptions = [
         {
-            type: "SIS‑01 Standard Issue Sandwich",
-            ingredients: "Bread, Meat (classified), Cheese, Lettuce, Regulated Condiments",
-            status: "85% Ready"
+            type: "Standard-Sandwich",
+            ingredients: "Bread, Meat, Cheese, Lettuce, Mayo",
+            status: "Ready for basic field operations"
         },
         {
-            type: "SIS‑02 Tactical Sub",
-            ingredients: "Sub Roll, Turkey, Swiss, Tactical Lettuce, Black Ops Mayo",
-            status: "92% Ready"
+            type: "FullyLoaded",
+            ingredients: "Bread, Ham, Turkey, Roast Beef, Cheese, Lettuce, Tomato, Onion, Sauce",
+            status: "High-calorie mission support"
         },
         {
-            type: "SIS‑03 Covert PB&J",
-            ingredients: "White Bread, Peanut Butter, Classified Jelly",
-            status: "76% Ready"
+            type: "OpenFace",
+            ingredients: "Single Slice Bread, Meat, Sauce, Garnish",
+            status: "Light-duty operational sandwich"
         },
         {
-            type: "SIS‑04 High‑Security Hoagie",
-            ingredients: "Hoagie Roll, Salami, Provolone, Onion, Secure Mustard",
-            status: "98% Ready"
+            type: "Sleek-Sub",
+            ingredients: "Sub Roll, Turkey, Swiss, Lettuce, Oil & Vinegar",
+            status: "Optimized for stealth missions"
+        },
+        {
+            type: "Super-Sandwich",
+            ingredients: "Bread, Double Meat, Double Cheese, Special Sauce, Reinforced Lettuce",
+            status: "Maximum performance sandwich"
         }
     ];
 
