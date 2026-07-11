@@ -59,21 +59,23 @@
     <p>Create your FBSI credentials below.</p>
 
     <label>Username</label>
-    <input type="text" placeholder="Choose a Username">
+    <input id="newUsername" type="text" placeholder="Choose a Username">
 
     <label>Badge Number</label>
-    <input type="text" placeholder="Enter Badge Number">
+    <input id="newBadge" type="text" placeholder="Enter Badge Number">
 
-    <button onclick="location.href='registered.html'">Create Account</button>
+    <button onclick="registerUser()">Create Account</button>
 </div>
-
-</body>
-</html>
 
 <script>
 function registerUser() {
     const username = document.getElementById("newUsername").value;
     const badge = document.getElementById("newBadge").value;
+
+    if (!username || !badge) {
+        alert("Please enter both a username and badge number.");
+        return;
+    }
 
     localStorage.setItem("fbsi_username", username);
     localStorage.setItem("fbsi_badge", badge);
@@ -81,3 +83,6 @@ function registerUser() {
     location.href = "registered.html";
 }
 </script>
+
+</body>
+</html>

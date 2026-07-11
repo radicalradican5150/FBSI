@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Federal Bureau of Sandwich Investigation</title>
+    <title>FBSI Secure Login</title>
     <style>
         body {
             background-color: #f2f2f2;
@@ -17,9 +17,6 @@
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 0 15px rgba(0,0,0,0.2);
-
-            /* DEBUG BORDER — REMOVE LATER */
-            border: 3px solid red;
         }
         h1 {
             margin-bottom: 20px;
@@ -70,12 +67,12 @@
     <h1>FBSI Secure Login</h1>
 
     <label>Username</label>
-    <input type="text" placeholder="Enter Username">
+    <input id="loginUsername" type="text" placeholder="Enter Username">
 
     <label>Badge Number</label>
-    <input type="text" placeholder="Enter Badge Number">
+    <input id="loginBadge" type="text" placeholder="Enter Badge Number">
 
-    <button onclick="location.href='consent.html'">Proceed</button>
+    <button onclick="login()">Proceed</button>
 
     <p class="new-user">
         <a href="newagent.html">I'm a new sandwich maker</a>
@@ -86,8 +83,6 @@
     </p>
 </div>
 
-</body>
-</html>
 <script>
 function login() {
     const savedUser = localStorage.getItem("fbsi_username");
@@ -96,6 +91,11 @@ function login() {
     const enteredUser = document.getElementById("loginUsername").value;
     const enteredBadge = document.getElementById("loginBadge").value;
 
+    if (!enteredUser || !enteredBadge) {
+        alert("Please enter both username and badge number.");
+        return;
+    }
+
     if (enteredUser === savedUser && enteredBadge === savedBadge) {
         location.href = "consent.html";
     } else {
@@ -103,3 +103,6 @@ function login() {
     }
 }
 </script>
+
+</body>
+</html>
