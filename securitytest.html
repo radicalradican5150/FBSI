@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FBSI Security Level Test</title>
+    <style>
+        body {
+            background-color: #e8e8e8;
+            font-family: Arial, sans-serif;
+            padding: 30px;
+        }
+        .container {
+            background: white;
+            width: 800px;
+            margin: auto;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.25);
+        }
+        h1 {
+            text-align: center;
+            color: #2e7d32;
+        }
+        .question {
+            margin-top: 25px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .answers {
+            margin-top: 10px;
+        }
+        .answers label {
+            display: block;
+            margin: 6px 0;
+            font-size: 18px;
+        }
+        button {
+            margin-top: 30px;
+            padding: 15px;
+            width: 100%;
+            font-size: 20px;
+            background-color: #1565c0;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>FBSI Security Level Test</h1>
+
+    <form id="securityForm">
+        <div id="questions"></div>
+        <button type="button" onclick="finishTest()">Submit Test</button>
+    </form>
+</div>
+
+<script>
+    const levels = [
+        "Sandwich Handler",
+        "Bread Technician",
+        "Condiment Specialist",
+        "Tactical Sub Operator",
+        "Ultra-Secure Sandwich Commander"
+    ];
+
+    const questions = [
+        "How do you react under pressure?",
+        "How carefully do you handle classified items?",
+        "How well do you follow mission instructions?",
+        "How do you respond to unexpected threats?",
+        "How organized are you during operations?",
+        "How seriously do you take FBSI protocols?",
+        "How do you handle sensitive sandwich intel?",
+        "How stealthy are you during missions?",
+        "How well do you manage team coordination?",
+        "How committed are you to FBSI security?"
+    ];
+
+    const answers = [
+        ["Stay calm", "Follow procedure", "Adapt quickly", "Take charge", "Dominate the situation"],
+        ["Very carefully", "Carefully", "Moderately", "Aggressively", "With extreme precision"],
+        ["Perfectly", "Well", "Adequately", "Creatively", "With tactical mastery"],
+        ["Stay composed", "Evaluate options", "React fast", "Neutralize threat", "Overwhelm threat"],
+        ["Highly organized", "Organized", "Somewhat organized", "Chaotic but effective", "Strategic chaos"],
+        ["Strictly", "Mostly", "Sometimes", "When needed", "I *am* the protocol"],
+        ["With caution", "With respect", "With curiosity", "With tactical intent", "With absolute authority"],
+        ["Low stealth", "Moderate stealth", "High stealth", "Extreme stealth", "Ghost‑level stealth"],
+        ["Basic coordination", "Good coordination", "Strong coordination", "High‑level coordination", "Command‑level coordination"],
+        ["Committed", "Dedicated", "Serious", "Elite", "Unbreakable"]
+    ];
+
+    function shuffle(arr) {
+        let a = arr.slice();
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    const mapping = [];
+    for (let i = 0; i < questions.length; i++) {
+        mapping.push(shuffle(levels));
+    }
+
+    const qDiv = document.getElementById("questions");
+
+    questions.forEach((qText, index) => {
+        const qBlock = document.createElement("div");
+        qBlock.innerHTML = `
+            <div class="question">${index + 1}. ${qText}</div>
+            <div class="answers">
+                ${answers[index].map((ans, i) => `
+                    <label>
+                        <input type="radio" name="q${index}" value="${mapping[index][i]}" required>
+                        ${ans}
+                    </label>
+                `).join("")}
+            </div>
+        `;
+        qDiv.appendChild(qBlock);
+    });
+
+    function finishTest() {
+        const form = document.getElementById("securityForm");
+        const data = new FormData(form);
+
+        let scores = {
+            "Sandwich Handler": 0,
+            "Bread Technician": 0,
+            "Condiment Specialist": 0,
+            "Tactical Sub Operator": 0,
+            "Ultra-Secure Sandwich Commander": 0
+        };
+
+        for (let value of data.values()) {
+            scores[value]++;
+        }
+
+        let best = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+
+        localStorage.setItem("fbsi_security", best);
+
+        location.href = "security.html";
+    }
+</script>
+
+</body>
+</html>
+

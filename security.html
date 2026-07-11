@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FBSI Security Level</title>
+    <style>
+        body {
+            background-color: #e8e8e8;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 60px;
+        }
+        .container {
+            background: white;
+            width: 650px;
+            margin: auto;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.25);
+        }
+        h1 {
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 18px;
+            color: #333;
+        }
+        .info-box, .security-box {
+            background: #f7f7f7;
+            padding: 20px;
+            margin-top: 25px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+        .label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .value {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        .btn {
+            display: block;
+            width: 80%;
+            margin: 20px auto;
+            padding: 15px;
+            font-size: 18px;
+            background-color: #1565c0;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        a {
+            display: inline-block;
+            margin-top: 15px;
+            font-size: 16px;
+            color: #1565c0;
+            text-decoration: none;
+        }
+        .retake {
+            margin-top: 25px;
+            font-size: 15px;
+            color: #444;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Your Security Clearance</h1>
+    <p>Below is your official FBSI Security Level.</p>
+
+    <div class="info-box">
+        <div class="label">Username:</div>
+        <div class="value" id="displayUser"></div>
+
+        <div class="label">Badge Number:</div>
+        <div class="value" id="displayBadge"></div>
+    </div>
+
+    <div id="securityArea"></div>
+
+    <div class="retake">
+        <a href="#" onclick="retakeSecurity()">Retake Security Test</a>
+    </div>
+
+    <a href="dashboard.html">Return to Dashboard</a>
+</div>
+
+<script>
+    const user = localStorage.getItem("fbsi_username");
+    const badge = localStorage.getItem("fbsi_badge");
+
+    document.getElementById("displayUser").innerText = user;
+    document.getElementById("displayBadge").innerText = badge;
+
+    const securityArea = document.getElementById("securityArea");
+    let level = localStorage.getItem("fbsi_security");
+
+    const levelData = {
+        "Sandwich Handler": {
+            desc: "Basic clearance. Trusted with low‑risk sandwich operations."
+        },
+        "Bread Technician": {
+            desc: "Intermediate clearance. Authorized to handle bread‑related intel."
+        },
+        "Condiment Specialist": {
+            desc: "Advanced clearance. Controls classified sauce distribution."
+        },
+        "Tactical Sub Operator": {
+            desc: "High clearance. Executes stealth sub‑based missions."
+        },
+        "Ultra-Secure Sandwich Commander": {
+            desc: "Maximum clearance. Full access to all FBSI sandwich intelligence."
+        }
+    };
+
+    if (level) {
+        const data = levelData[level];
+        securityArea.innerHTML = `
+            <div class="security-box">
+                <div class="label">Security Level:</div>
+                <div class="value">${level}</div>
+
+                <div class="label">Description:</div>
+                <div class="value">${data.desc}</div>
+            </div>
+        `;
+    } else {
+        securityArea.innerHTML = `
+            <button class="btn" onclick="location.href='securitytest.html'">Determine Security Level</button>
+        `;
+    }
+
+    function retakeSecurity() {
+        localStorage.removeItem("fbsi_security");
+        location.href = "securitytest.html";
+    }
+</script>
+
+</body>
+</html>
