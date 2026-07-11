@@ -12,7 +12,7 @@
         }
         .container {
             background: white;
-            width: 600px;
+            width: 650px;
             margin: auto;
             padding: 40px;
             border-radius: 10px;
@@ -26,7 +26,7 @@
             font-size: 18px;
             color: #333;
         }
-        .info-box {
+        .info-box, .sandwich-box {
             background: #f7f7f7;
             padding: 20px;
             margin-top: 25px;
@@ -42,13 +42,17 @@
             font-size: 18px;
             margin-bottom: 15px;
         }
-        .sandwich-box {
-            background: #fff7d1;
-            padding: 20px;
-            margin-top: 25px;
-            border-radius: 8px;
-            border: 1px solid #d4b44c;
-            text-align: left;
+        .btn {
+            display: block;
+            width: 80%;
+            margin: 20px auto;
+            padding: 15px;
+            font-size: 18px;
+            background-color: #1565c0;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
         }
         a {
             display: inline-block;
@@ -63,7 +67,7 @@
 
 <div class="container">
     <h1>Your Assigned Sandwich</h1>
-    <p>Welcome, Agent. Below is your current FBSI‑issued sandwich profile.</p>
+    <p>Welcome, Agent. Below is your official FBSI‑issued sandwich profile.</p>
 
     <div class="info-box">
         <div class="label">Username:</div>
@@ -73,22 +77,8 @@
         <div class="value" id="displayBadge"></div>
     </div>
 
-    <div class="sandwich-box">
-        <div class="label">Sandwich Type:</div>
-        <div class="value" id="sandwichType">Standard Issue Sandwich (SIS‑01)</div>
-
-        <div class="label">Ingredients:</div>
-        <div class="value" id="sandwichIngredients">
-            Bread (2 slices)<br>
-            Meat (classified)<br>
-            Cheese (optional)<br>
-            Lettuce (approved)<br>
-            Condiments (regulated)
-        </div>
-
-        <div class="label">Status:</div>
-        <div class="value" id="sandwichStatus">Ready for deployment</div>
-    </div>
+    <!-- Sandwich area -->
+    <div id="sandwichArea"></div>
 
     <a href="dashboard.html">Return to Dashboard</a>
 </div>
@@ -98,9 +88,65 @@
     const user = localStorage.getItem("fbsi_username");
     const badge = localStorage.getItem("fbsi_badge");
 
-    // Display them
     document.getElementById("displayUser").innerText = user;
     document.getElementById("displayBadge").innerText = badge;
+
+    // Sandwich logic
+    const sandwichArea = document.getElementById("sandwichArea");
+    let sandwich = localStorage.getItem("fbsi_sandwich");
+
+    const sandwichOptions = [
+        {
+            type: "SIS‑01 Standard Issue Sandwich",
+            ingredients: "Bread, Meat (classified), Cheese, Lettuce, Regulated Condiments",
+            status: "85% Ready"
+        },
+        {
+            type: "SIS‑02 Tactical Sub",
+            ingredients: "Sub Roll, Turkey, Swiss, Tactical Lettuce, Black Ops Mayo",
+            status: "92% Ready"
+        },
+        {
+            type: "SIS‑03 Covert PB&J",
+            ingredients: "White Bread, Peanut Butter, Classified Jelly",
+            status: "76% Ready"
+        },
+        {
+            type: "SIS‑04 High‑Security Hoagie",
+            ingredients: "Hoagie Roll, Salami, Provolone, Onion, Secure Mustard",
+            status: "98% Ready"
+        }
+    ];
+
+    function displaySandwich(data) {
+        sandwichArea.innerHTML = `
+            <div class="sandwich-box">
+                <div class="label">Sandwich Type:</div>
+                <div class="value">${data.type}</div>
+
+                <div class="label">Ingredients:</div>
+                <div class="value">${data.ingredients}</div>
+
+                <div class="label">Status:</div>
+                <div class="value">${data.status}</div>
+            </div>
+        `;
+    }
+
+    function determineSandwich() {
+        const random = sandwichOptions[Math.floor(Math.random() * sandwichOptions.length)];
+        localStorage.setItem("fbsi_sandwich", JSON.stringify(random));
+        displaySandwich(random);
+    }
+
+    // If sandwich exists, show it. If not, show button.
+    if (sandwich) {
+        displaySandwich(JSON.parse(sandwich));
+    } else {
+        sandwichArea.innerHTML = `
+            <button class="btn" onclick="determineSandwich()">Determine Your Sandwich</button>
+        `;
+    }
 </script>
 
 </body>
