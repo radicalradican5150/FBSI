@@ -88,3 +88,18 @@
 
 </body>
 </html>
+<script>
+function login() {
+    const savedUser = localStorage.getItem("fbsi_username");
+    const savedBadge = localStorage.getItem("fbsi_badge");
+
+    const enteredUser = document.getElementById("loginUsername").value;
+    const enteredBadge = document.getElementById("loginBadge").value;
+
+    if (enteredUser === savedUser && enteredBadge === savedBadge) {
+        location.href = "consent.html";
+    } else {
+        alert("Invalid username or badge number.");
+    }
+}
+</script>
