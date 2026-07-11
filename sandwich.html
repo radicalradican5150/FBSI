@@ -95,65 +95,28 @@
     const sandwichArea = document.getElementById("sandwichArea");
     let sandwich = localStorage.getItem("fbsi_sandwich");
 
-    // Your 5 sandwich types
-    const sandwichOptions = [
-        {
-            type: "Standard-Sandwich",
+    // Ingredient + status lookup
+    const sandwichData = {
+        "Standard-Sandwich": {
             ingredients: "Bread, Meat, Cheese, Lettuce, Mayo",
             status: "Ready for basic field operations"
         },
-        {
-            type: "FullyLoaded",
+        "FullyLoaded": {
             ingredients: "Bread, Ham, Turkey, Roast Beef, Cheese, Lettuce, Tomato, Onion, Sauce",
             status: "High-calorie mission support"
         },
-        {
-            type: "OpenFace",
+        "OpenFace": {
             ingredients: "Single Slice Bread, Meat, Sauce, Garnish",
             status: "Light-duty operational sandwich"
         },
-        {
-            type: "Sleek-Sub",
+        "Sleek-Sub": {
             ingredients: "Sub Roll, Turkey, Swiss, Lettuce, Oil & Vinegar",
             status: "Optimized for stealth missions"
         },
-        {
-            type: "Super-Sandwich",
+        "Super-Sandwich": {
             ingredients: "Bread, Double Meat, Double Cheese, Special Sauce, Reinforced Lettuce",
             status: "Maximum performance sandwich"
         }
-    ];
+    };
 
-    function displaySandwich(data) {
-        sandwichArea.innerHTML = `
-            <div class="sandwich-box">
-                <div class="label">Sandwich Type:</div>
-                <div class="value">${data.type}</div>
-
-                <div class="label">Ingredients:</div>
-                <div class="value">${data.ingredients}</div>
-
-                <div class="label">Status:</div>
-                <div class="value">${data.status}</div>
-            </div>
-        `;
-    }
-
-    function determineSandwich() {
-        const random = sandwichOptions[Math.floor(Math.random() * sandwichOptions.length)];
-        localStorage.setItem("fbsi_sandwich", JSON.stringify(random));
-        displaySandwich(random);
-    }
-
-    // If sandwich exists, show it. If not, show button.
-    if (sandwich) {
-        displaySandwich(JSON.parse(sandwich));
-    } else {
-        sandwichArea.innerHTML = `
-            <button class="btn" onclick="location.href='test.html'">Determine Your Sandwich</button>
-        `;
-    }
-</script>
-
-</body>
-</html>
+    // If sandwich
