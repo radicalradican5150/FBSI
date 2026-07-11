@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FBSI Sandwich Compatibility Test</title>
+    <style>
+        body {
+            background-color: #e8e8e8;
+            font-family: Arial, sans-serif;
+            padding: 30px;
+        }
+        .container {
+            background: white;
+            width: 800px;
+            margin: auto;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.25);
+        }
+        h1 {
+            text-align: center;
+            color: #2e7d32;
+        }
+        .question {
+            margin-top: 25px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .answers {
+            margin-top: 10px;
+        }
+        .answers label {
+            display: block;
+            margin: 6px 0;
+            font-size: 18px;
+        }
+        button {
+            margin-top: 30px;
+            padding: 15px;
+            width: 100%;
+            font-size: 20px;
+            background-color: #1565c0;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>FBSI Sandwich Compatibility Test (SCT‑20)</h1>
+
+    <form id="sandwichForm">
+
+        <!-- QUESTIONS GENERATED HERE -->
+        <div id="questions"></div>
+
+        <button type="button" onclick="finishTest()">Submit Test</button>
+    </form>
+</div>
+
+<script>
+    // Sandwich categories
+    const types = ["Standard-Sandwich", "FullyLoaded", "OpenFace", "Sleek-Sub", "Super-Sandwich"];
+
+    // 20 questions mapped to sandwich types
+    const questions = [
+        ["How hungry are you right now?", types],
+        ["Pick a bread style.", types],
+        ["How messy can your sandwich be?", types],
+        ["Pick a mission type.", types],
+        ["Choose a cheese level.", types],
+        ["How fast do you eat?", types],
+        ["Pick a condiment style.", types],
+        ["Pick your ideal sandwich weight.", types],
+        ["How much meat do you want?", types],
+        ["Pick a sandwich temperature.", types],
+        ["How adventurous are you with food?", types],
+        ["Pick a sandwich speed rating.", types],
+        ["Pick a sandwich mission duration.", types],
+        ["Pick a lettuce level.", types],
+        ["How much energy do you need?", types],
+        ["Pick a sandwich vibe.", types],
+        ["Pick a sandwich difficulty rating.", types],
+        ["Pick a sandwich stealth rating.", types],
+        ["Pick a sandwich morale boost.", types],
+        ["Pick a sandwich intimidation level.", types]
+    ];
+
+    // Render questions
+    const qDiv = document.getElementById("questions");
+
+    questions.forEach((q, index) => {
+        const qBlock = document.createElement("div");
+        qBlock.innerHTML = `
+            <div class="question">${index + 1}. ${q[0]}</div>
+            <div class="answers">
+                ${q[1].map(type => `
+                    <label>
+                        <input type="radio" name="q${index}" value="${type}" required>
+                        ${type}
+                    </label>
+                `).join("")}
+            </div>
+        `;
+        qDiv.appendChild(qBlock);
+    });
+
+    function finishTest() {
+        const form = document.getElementById("sandwichForm");
+        const data = new FormData(form);
+
+        // Score counters
+        let scores = {
+            "Standard-Sandwich": 0,
+            "FullyLoaded": 0,
+            "OpenFace": 0,
+            "Sleek-Sub": 0,
+            "Super-Sandwich": 0
+        };
+
+        // Count answers
+        for (let value of data.values()) {
+            scores[value]++;
+        }
+
+        // Determine highest score
+        let best = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+
+        // Save sandwich result
+        localStorage.setItem("fbsi_sandwich", best);
+
+        // Redirect back to sandwich page
+        location.href = "sandwich.html";
+    }
+</script>
+
+</body>
+</html>
