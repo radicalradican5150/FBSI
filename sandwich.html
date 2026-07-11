@@ -63,4 +63,100 @@
         }
         .retake {
             margin-top: 25px;
-            font
+            font-size: 15px;
+            color: #444;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Your Assigned Sandwich</h1>
+    <p>Welcome, Agent. Below is your official FBSI‑issued sandwich profile.</p>
+
+    <div class="info-box">
+        <div class="label">Username:</div>
+        <div class="value" id="displayUser"></div>
+
+        <div class="label">Badge Number:</div>
+        <div class="value" id="displayBadge"></div>
+    </div>
+
+    <!-- Sandwich area -->
+    <div id="sandwichArea"></div>
+
+    <!-- Retake link -->
+    <div class="retake">
+        <a href="#" onclick="retakeTest()">Retake Sandwich Test</a>
+    </div>
+
+    <a href="dashboard.html">Return to Dashboard</a>
+</div>
+
+<script>
+    // Pull saved credentials
+    const user = localStorage.getItem("fbsi_username");
+    const badge = localStorage.getItem("fbsi_badge");
+
+    document.getElementById("displayUser").innerText = user;
+    document.getElementById("displayBadge").innerText = badge;
+
+    // Sandwich logic
+    const sandwichArea = document.getElementById("sandwichArea");
+    let sandwich = localStorage.getItem("fbsi_sandwich");
+
+    // Ingredient + status lookup
+    const sandwichData = {
+        "Standard-Sandwich": {
+            ingredients: "Bread, Meat, Cheese, Lettuce, Mayo",
+            status: "Ready for basic field operations"
+        },
+        "FullyLoaded": {
+            ingredients: "Bread, Ham, Turkey, Roast Beef, Cheese, Lettuce, Tomato, Onion, Sauce",
+            status: "High-calorie mission support"
+        },
+        "OpenFace": {
+            ingredients: "Single Slice Bread, Meat, Sauce, Garnish",
+            status: "Light-duty operational sandwich"
+        },
+        "Sleek-Sub": {
+            ingredients: "Sub Roll, Turkey, Swiss, Lettuce, Oil & Vinegar",
+            status: "Optimized for stealth missions"
+        },
+        "Super-Sandwich": {
+            ingredients: "Bread, Double Meat, Double Cheese, Special Sauce, Reinforced Lettuce",
+            status: "Maximum performance sandwich"
+        }
+    };
+
+    // Display sandwich or button
+    if (sandwich) {
+        const data = sandwichData[sandwich];
+
+        sandwichArea.innerHTML = `
+            <div class="sandwich-box">
+                <div class="label">Sandwich Type:</div>
+                <div class="value">${sandwich}</div>
+
+                <div class="label">Ingredients:</div>
+                <div class="value">${data.ingredients}</div>
+
+                <div class="label">Status:</div>
+                <div class="value">${data.status}</div>
+            </div>
+        `;
+    } else {
+        sandwichArea.innerHTML = `
+            <button class="btn" onclick="location.href='test.html'">Determine Your Sandwich</button>
+        `;
+    }
+
+    // Retake function
+    function retakeTest() {
+        localStorage.removeItem("fbsi_sandwich");
+        location.href = "test.html";
+    }
+</script>
+
+</body>
+</html>
