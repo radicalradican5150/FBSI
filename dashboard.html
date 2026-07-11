@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FBSI Agent Dashboard</title>
+    <style>
+        body {
+            background-color: #e8e8e8;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 60px;
+        }
+        .container {
+            background: white;
+            width: 600px;
+            margin: auto;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.25);
+        }
+        h1 {
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 18px;
+            color: #333;
+        }
+        .info-box {
+            background: #f7f7f7;
+            padding: 20px;
+            margin-top: 25px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+        .label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .value {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        .button-area {
+            margin-top: 30px;
+        }
+        .dash-btn {
+            display: block;
+            width: 80%;
+            margin: 12px auto;
+            padding: 15px;
+            font-size: 18px;
+            background-color: #1565c0;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        a {
+            display: inline-block;
+            margin-top: 25px;
+            font-size: 16px;
+            color: #1565c0;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Welcome, Agent</h1>
+    <p>You have entered the secure FBSI system.</p>
+
+    <div class="info-box">
+        <div class="label">Registered Username:</div>
+        <div class="value" id="displayUser"></div>
+
+        <div class="label">Badge Number:</div>
+        <div class="value" id="displayBadge"></div>
+    </div>
+
+    <div class="button-area">
+        <button class="dash-btn" onclick="location.href='sandwich.html'">Your Sandwich</button>
+        <button class="dash-btn" onclick="location.href='security.html'">Security Level</button>
+        <button class="dash-btn" onclick="location.href='updates.html'">Updates</button>
+    </div>
+
+    <a href="index.html">Log Out</a>
+</div>
+
+<script>
+    const user = localStorage.getItem("fbsi_username");
+    const badge = localStorage.getItem("fbsi_badge");
+
+    document.getElementById("displayUser").innerText = user;
+    document.getElementById("displayBadge").innerText = badge;
+</script>
+
+</body>
+</html>
