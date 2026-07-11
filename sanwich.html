@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Sandwich - FBSI</title>
+    <style>
+        body {
+            background-color: #e8e8e8;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 60px;
+        }
+        .container {
+            background: white;
+            width: 600px;
+            margin: auto;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.25);
+        }
+        h1 {
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 18px;
+            color: #333;
+        }
+        .info-box {
+            background: #f7f7f7;
+            padding: 20px;
+            margin-top: 25px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+        .label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .value {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        .sandwich-box {
+            background: #fff7d1;
+            padding: 20px;
+            margin-top: 25px;
+            border-radius: 8px;
+            border: 1px solid #d4b44c;
+            text-align: left;
+        }
+        a {
+            display: inline-block;
+            margin-top: 25px;
+            font-size: 16px;
+            color: #1565c0;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Your Assigned Sandwich</h1>
+    <p>Welcome, Agent. Below is your current FBSI‑issued sandwich profile.</p>
+
+    <div class="info-box">
+        <div class="label">Username:</div>
+        <div class="value" id="displayUser"></div>
+
+        <div class="label">Badge Number:</div>
+        <div class="value" id="displayBadge"></div>
+    </div>
+
+    <div class="sandwich-box">
+        <div class="label">Sandwich Type:</div>
+        <div class="value" id="sandwichType">Standard Issue Sandwich (SIS‑01)</div>
+
+        <div class="label">Ingredients:</div>
+        <div class="value" id="sandwichIngredients">
+            Bread (2 slices)<br>
+            Meat (classified)<br>
+            Cheese (optional)<br>
+            Lettuce (approved)<br>
+            Condiments (regulated)
+        </div>
+
+        <div class="label">Status:</div>
+        <div class="value" id="sandwichStatus">Ready for deployment</div>
+    </div>
+
+    <a href="dashboard.html">Return to Dashboard</a>
+</div>
+
+<script>
+    // Pull saved credentials
+    const user = localStorage.getItem("fbsi_username");
+    const badge = localStorage.getItem("fbsi_badge");
+
+    // Display them
+    document.getElementById("displayUser").innerText = user;
+    document.getElementById("displayBadge").innerText = badge;
+</script>
+
+</body>
+</html>
