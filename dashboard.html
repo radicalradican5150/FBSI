@@ -2,17 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>FBSI Agent Dashboard</title>
+    <title>FBSI Dashboard</title>
     <style>
         body {
             background-color: #e8e8e8;
             font-family: Arial, sans-serif;
             text-align: center;
-            padding-top: 60px;
+            padding-top: 40px;
         }
         .container {
             background: white;
-            width: 600px;
+            width: 650px;
             margin: auto;
             padding: 40px;
             border-radius: 10px;
@@ -42,13 +42,10 @@
             font-size: 18px;
             margin-bottom: 15px;
         }
-        .button-area {
-            margin-top: 30px;
-        }
-        .dash-btn {
+        .btn {
             display: block;
             width: 80%;
-            margin: 12px auto;
+            margin: 15px auto;
             padding: 15px;
             font-size: 18px;
             background-color: #1565c0;
@@ -59,7 +56,7 @@
         }
         a {
             display: inline-block;
-            margin-top: 25px;
+            margin-top: 20px;
             font-size: 16px;
             color: #1565c0;
             text-decoration: none;
@@ -69,35 +66,20 @@
 <body>
 
 <div class="container">
-    <h1>Welcome, Agent</h1>
-    <p>You have entered the secure FBSI system.</p>
+    <h1>FBSI Agent Dashboard</h1>
+    <p>Welcome back, Agent. Your operational data is displayed below.</p>
 
     <div class="info-box">
-        <div class="label">Registered Username:</div>
+        <div class="label">Agent Username:</div>
         <div class="value" id="displayUser"></div>
 
         <div class="label">Badge Number:</div>
         <div class="value" id="displayBadge"></div>
     </div>
 
-    <div class="button-area">
-        <button class="dash-btn" onclick="location.href='sandwich.html'">Your Sandwich</button>
-        <button class="dash-btn" onclick="location.href='security.html'">Security Level</button>
-        <button class="dash-btn" onclick="location.href='updates.html'">Updates</button>
-	<button onclick="location.href='profile.html'">Agent Profile</button>
+    <!-- Buttons -->
+    <button class="btn" onclick="location.href='sandwich.html'">Your Sandwich</button>
+    <button class="btn" onclick="location.href='security.html'">Security Level</button>
+    <button class="btn" onclick="location.href='profile.html'">Agent Profile</button>
 
-    </div>
-
-    <a href="index.html">Log Out</a>
-</div>
-
-<script>
-    const user = localStorage.getItem("fbsi_username");
-    const badge = localStorage.getItem("fbsi_badge");
-
-    document.getElementById("displayUser").innerText = user;
-    document.getElementById("displayBadge").innerText = badge;
-</script>
-
-</body>
-</html>
+    <a href="index.html">
