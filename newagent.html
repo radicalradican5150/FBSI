@@ -69,3 +69,15 @@
 
 </body>
 </html>
+
+<script>
+function registerUser() {
+    const username = document.getElementById("newUsername").value;
+    const badge = document.getElementById("newBadge").value;
+
+    localStorage.setItem("fbsi_username", username);
+    localStorage.setItem("fbsi_badge", badge);
+
+    location.href = "registered.html";
+}
+</script>
