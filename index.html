@@ -17,6 +17,9 @@
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 0 15px rgba(0,0,0,0.2);
+
+            /* DEBUG BORDER — REMOVE LATER */
+            border: 3px solid red;
         }
         h1 {
             margin-bottom: 20px;
@@ -44,3 +47,44 @@
             color: white;
             border: none;
             border-radius: 6px;
+            cursor: pointer;
+        }
+        .new-user, .info-link {
+            margin-top: 15px;
+        }
+        .new-user a {
+            color: #1565c0;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .info-link a {
+            color: #424242;
+            text-decoration: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>FBSI Secure Login</h1>
+
+    <label>Username</label>
+    <input type="text" placeholder="Enter Username">
+
+    <label>Badge Number</label>
+    <input type="text" placeholder="Enter Badge Number">
+
+    <button onclick="location.href='consent.html'">Proceed</button>
+
+    <p class="new-user">
+        <a href="newagent.html">I'm a new sandwich maker</a>
+    </p>
+
+    <p class="info-link">
+        <a href="info.html">FBSI Information</a>
+    </p>
+</div>
+
+</body>
+</html>
