@@ -53,18 +53,37 @@
     <h1>FBSI Sandwich Compatibility Test (SCT‑20)</h1>
 
     <form id="sandwichForm">
-
         <div id="questions"></div>
-
         <button type="button" onclick="finishTest()">Submit Test</button>
     </form>
 </div>
 
 <script>
-    // Sandwich types
     const types = ["Standard-Sandwich", "FullyLoaded", "OpenFace", "Sleek-Sub", "Super-Sandwich"];
 
-    // Real human answers for each question
+    const questions = [
+        "How hungry are you right now?",
+        "What kind of bread do you prefer?",
+        "How messy can your sandwich be?",
+        "What mission are you preparing for?",
+        "How much cheese do you want?",
+        "How fast do you usually eat?",
+        "Pick your condiment style.",
+        "What weight should your sandwich be?",
+        "How much meat do you want?",
+        "Preferred sandwich temperature?",
+        "How adventurous are you with food?",
+        "Sandwich speed rating?",
+        "Mission duration?",
+        "Lettuce level?",
+        "Energy requirement?",
+        "Sandwich vibe?",
+        "Difficulty rating?",
+        "Stealth rating?",
+        "Morale boost?",
+        "Intimidation level?"
+    ];
+
     const answers = [
         ["A light snack", "A normal meal", "Something efficient and filling", "A big hearty sandwich", "A massive, energy-packed meal"],
         ["One slice, open style", "Classic white or wheat", "A long sub roll", "Thick artisan bread", "Reinforced double-layer bread"],
@@ -88,32 +107,28 @@
         ["None", "Mild", "Tactical", "Noticeable", "Terrifying"]
     ];
 
-    // Randomized-but-fixed mapping
-    const mapping = [];
-
-    function shuffle(array) {
-        let arr = array.slice();
-        for (let i = arr.length - 1; i > 0; i--) {
+    function shuffle(arr) {
+        let a = arr.slice();
+        for (let i = a.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
-            [arr[i], arr[j]] = [arr[j], arr[i]];
+            [a[i], a[j]] = [a[j], a[i]];
         }
-        return arr;
+        return a;
     }
 
-    // Create a fixed randomized mapping for each question
-    for (let i = 0; i < answers.length; i++) {
+    const mapping = [];
+    for (let i = 0; i < questions.length; i++) {
         mapping.push(shuffle(types));
     }
 
-    // Render questions
     const qDiv = document.getElementById("questions");
 
-    answers.forEach((ansList, index) => {
+    questions.forEach((qText, index) => {
         const qBlock = document.createElement("div");
         qBlock.innerHTML = `
-            <div class="question">${index + 1}. ${questionsText(index)}</div>
+            <div class="question">${index + 1}. ${qText}</div>
             <div class="answers">
-                ${ansList.map((ans, i) => `
+                ${answers[index].map((ans, i) => `
                     <label>
                         <input type="radio" name="q${index}" value="${mapping[index][i]}" required>
                         ${ans}
@@ -123,33 +138,6 @@
         `;
         qDiv.appendChild(qBlock);
     });
-
-    // Question text function
-    function questionsText(i) {
-        const q = [
-            "How hungry are you right now?",
-            "What kind of bread do you prefer?",
-            "How messy can your sandwich be?",
-            "What mission are you preparing for?",
-            "How much cheese do you want?",
-            "How fast do you usually eat?",
-            "Pick your condiment style.",
-            "What weight should your sandwich be?",
-            "How much meat do you want?",
-            "Preferred sandwich temperature?",
-            "How adventurous are you with food?",
-            "Sandwich speed rating?",
-            "Mission duration?",
-            "Lettuce level?",
-            "Energy requirement?",
-            "Sandwich vibe?",
-            "Difficulty rating?",
-            "Stealth rating?",
-            "Morale boost?",
-            "Intimidation level?"
-        ];
-        return q[i];
-    }
 
     function finishTest() {
         const form = document.getElementById("sandwichForm");

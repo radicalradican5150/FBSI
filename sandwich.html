@@ -82,10 +82,8 @@
         <div class="value" id="displayBadge"></div>
     </div>
 
-    <!-- Sandwich area -->
     <div id="sandwichArea"></div>
 
-    <!-- Retake link -->
     <div class="retake">
         <a href="#" onclick="retakeTest()">Retake Sandwich Test</a>
     </div>
@@ -94,18 +92,15 @@
 </div>
 
 <script>
-    // Pull saved credentials
     const user = localStorage.getItem("fbsi_username");
     const badge = localStorage.getItem("fbsi_badge");
 
     document.getElementById("displayUser").innerText = user;
     document.getElementById("displayBadge").innerText = badge;
 
-    // Sandwich logic
     const sandwichArea = document.getElementById("sandwichArea");
     let sandwich = localStorage.getItem("fbsi_sandwich");
 
-    // Ingredient + status lookup
     const sandwichData = {
         "Standard-Sandwich": {
             ingredients: "Bread, Meat, Cheese, Lettuce, Mayo",
@@ -129,10 +124,8 @@
         }
     };
 
-    // Display sandwich or button
     if (sandwich) {
         const data = sandwichData[sandwich];
-
         sandwichArea.innerHTML = `
             <div class="sandwich-box">
                 <div class="label">Sandwich Type:</div>
@@ -151,7 +144,6 @@
         `;
     }
 
-    // Retake function
     function retakeTest() {
         localStorage.removeItem("fbsi_sandwich");
         location.href = "test.html";
