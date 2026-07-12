@@ -84,3 +84,53 @@
 
     <!-- Updates Section -->
     <div class="updates-box">
+        <div class="label">FBSI Updates:</div>
+        <div id="updatesList"></div>
+    </div>
+
+    <!-- Buttons -->
+    <button class="btn" onclick="location.href='sandwich.html'">Your Sandwich</button>
+    <button class="btn" onclick="location.href='security.html'">Security Level</button>
+    <button class="btn" onclick="location.href='profile.html'">Agent Profile</button>
+
+    <a href="index.html">Log Out</a>
+</div>
+
+<script>
+    // Load user info
+    const user = localStorage.getItem("fbsi_username");
+    const badge = localStorage.getItem("fbsi_badge");
+
+    document.getElementById("displayUser").innerText = user ? user : "Unknown Agent";
+    document.getElementById("displayBadge").innerText = badge ? badge : "No Badge Assigned";
+
+    // Updates list
+    const updates = [
+        "New condiment protocols have been issued for field agents.",
+        "Bread Technician Division reports increased crust‑integrity failures.",
+        "Ultra‑Secure Sandwich Commander briefing scheduled for next week.",
+        "Sleek‑Sub stealth training simulations updated.",
+        "Condiment Specialist clearance now required for spicy mayo handling.",
+        "FBSI cafeteria introducing reinforced lettuce options.",
+        "Mission logs indicate rising sandwich‑related anomalies.",
+        "Security audit recommends reviewing sandwich containment procedures.",
+        "New badge printing system online — report errors immediately.",
+        "Reminder: Do NOT feed classified sandwiches to wildlife."
+    ];
+
+    // Display 3 random updates
+    const updatesList = document.getElementById("updatesList");
+    let chosen = [];
+
+    while (chosen.length < 3) {
+        let pick = updates[Math.floor(Math.random() * updates.length)];
+        if (!chosen.includes(pick)) chosen.push(pick);
+    }
+
+    chosen.forEach(u => {
+        updatesList.innerHTML += `<div class="update-item">• ${u}</div>`;
+    });
+</script>
+
+</body>
+</html>
